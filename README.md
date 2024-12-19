@@ -26,6 +26,17 @@ Number of files:      202
 Number of directories:    10003
 ```
 
+Notice also that unrelated non-source files do not impact the deploy.
+
+Run this script to generate 10000 markdown files in the project.
+
+```
+bash ./create_unrelated_files.sh
+```
+
+Repeat the steps above, and notice that the deploy is still successful.
+
+
 # Testing MDAPI format
 
 Convert the deeply nested source format files into MDAPI format.
