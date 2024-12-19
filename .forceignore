@@ -13,3 +13,6 @@ package.xml
 **/tsconfig.json
 
 **/*.ts
+
+# ignore unrelated markdown files
+*.md
