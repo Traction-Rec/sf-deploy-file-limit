@@ -18,7 +18,7 @@ Deploy the project
 sf project deploy start -c -o  foldertest
 ```
 
-Notice that there are no errors, even though there are 10205 files + folders in the project. This is above the 10k file limit, indicating that folders are not counted as files.
+Notice that there are no errors, even though there are 10205 files + folders in the project. This is above the 10k file limit, indicating that folders are not counted against the 10k file deploy limit.
 
 ```
 > bash ./count_files_and_folders.sh force-app/*
