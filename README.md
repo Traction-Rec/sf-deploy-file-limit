@@ -1,18 +1,35 @@
-# Salesforce DX Project: Next Steps
+# Testing impact of folders on `sf project deploy `
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+Create a new scratch org
 
-## How Do You Plan to Deploy Your Changes?
+```
+sf org create scratch -a foldertest -f ./config/project-scratch-def.json
+```
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Clear tracking to ensure all files are pushed
 
-## Configure Your Salesforce DX Project
+```
+sf project delete tracking -p -o foldertest
+```
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+Deploy the project
 
-## Read All About It
+```
+sf project deploy start -c -o  foldertest
+```
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Notice that there are no errors, even though there are 101*101 or 10201 files + folders in the project. This is above the 10k file limit, indicating that folders are not counted as files.
+
+# Testing MDAPI format
+
+Convert the deeply nested source format files into MDAPI format.
+
+```
+sfdx force:source:convert -d mdapi_src -n "TREX1" -p force-app
+```
+
+Notice that the folder structure is flattened in the MDAPI format.
+
+This indicates that folder count in the source format should not impact the 10K file limit when deployed in MDAPI format.
+
+![Alt text](image.png)
